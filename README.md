@@ -1,3 +1,13 @@
 # utm builder 
 
-single .html file inline .css, 2 buttons, .html inputs and 2 poorly written .js functions - see live demo - https://utmbuilder1.netlify.app
+Live Demo — https://utmbuilder1.netlify.app
+
+## What's inside? 
+
+single .html file
+inline .css, 
+2 buttons, 
+campaign .html inputs 
+2 poorly written .js functions
+
+Demo - https://utmbuilder1.netlify.app
