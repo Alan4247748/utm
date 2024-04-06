@@ -4,10 +4,10 @@ Live Demo — https://utmbuilder1.netlify.app
 
 ## What's inside? 
 
-single .html file
-inline .css, 
-2 buttons, 
-campaign .html inputs 
-2 poorly written .js functions
+- single .html file
+- inline .css, 
+- 2 buttons, 
+- campaign .html inputs 
+- 2 poorly written .js functions
 
 Demo - https://utmbuilder1.netlify.app
