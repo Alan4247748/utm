@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTM Builder</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a.banner-link {
+            text-decoration: none; /* No underline for the link */
+        }
+        .banner {
+            background-color: #4cae4c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            display: block; /* Ensure the link displays as a block */
+        }
+        .banner:hover {
+            text-decoration: none; /* No underline on hover */
+            opacity: 0.9; /* Slight visual feedback on hover */
+        }
+        .container {
+            background-image: linear-gradient(to bottom, rgb(92, 92, 92), rgb(0, 0, 0));
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        body, html {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], textarea {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 40px;
+        }
+        button:last-child {
+            margin-right: 0;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+        /* Headings */
+        h1, h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: left;
+            width: calc(100% - 40px);
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+     <!-- Plausible Analytics script -->
+     <script defer data-domain="utmbuilder1.netlify.app" src="https://plausible.io/js/script.js"></script>
+
+</head>
+<body>
+    <a href="https://dasfilter.shop?utm_source=utmb1&utm_medium=banner&utm_campaign=buildit" target="_blank" class="banner-link">
+        <div class="banner">Sponsored by Das Filter</div>
+    </a>
+    <div class="container">
+        <h2>Campaign Info</h2>
+        <input type="text" id="websiteURL" placeholder="Website URL">
+        <input type="text" id="campaignSource" placeholder="Campaign Source">
+        <input type="text" id="campaignMedium" placeholder="Campaign Medium">
+        <input type="text" id="campaignName" placeholder="Campaign Name">
+        <input type="text" id="campaignTerm" placeholder="Campaign Term (Optional)">
+        <input type="text" id="campaignContent" placeholder="Campaign Content (Optional)">
+        <div>
+            <button onclick="generateUTM()">Generate UTM URL</button>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+        <h2>Campaign Link</h2>
+        <textarea id="generatedURL" placeholder="Generated URL will appear here..." readonly></textarea>
+    </div>
+    <a href="https://dasfilter.shop?utm_source=utmb1&utm_medium=banner&utm_campaign=buildit" target="_blank" class="banner-link">
+        <div class="banner">Sponsored by Das Filter</div>
+    </a>
+    <script>
+    function generateUTM() {
+        var websiteURL = document.getElementById('websiteURL').value.trim();
+        var campaignSource = document.getElementById('campaignSource').value.trim();
+        var campaignMedium = document.getElementById('campaignMedium').value.trim();
+        var campaignName = document.getElementById('campaignName').value.trim();
+
+        // Basic Validation for Required Fields
+        if (!websiteURL || !campaignSource || !campaignMedium || !campaignName) {
+            alert("Please fill out all required fields.");
+            return; // Stop execution if validation fails
+        }
+
+        // HTTPS Check and Prepend if necessary
+        if (!websiteURL.startsWith("http://") && !websiteURL.startsWith("https://")) {
+            // Automatically prepend "https://" to the URL
+            websiteURL = "https://" + websiteURL;
+        }
+
+        var campaignTerm = document.getElementById('campaignTerm').value.trim();
+        var campaignContent = document.getElementById('campaignContent').value.trim();
+
+        var utmURL = websiteURL + '?utm_source=' + encodeURIComponent(campaignSource) +
+                     '&utm_medium=' + encodeURIComponent(campaignMedium) +
+                     '&utm_campaign=' + encodeURIComponent(campaignName);
+
+        if (campaignTerm) {
+            utmURL += '&utm_term=' + encodeURIComponent(campaignTerm);
+        }
+
+        if (campaignContent) {
+            utmURL += '&utm_content=' + encodeURIComponent(campaignContent);
+        }
+
+        document.getElementById('generatedURL').value = utmURL;
+    }
+
+    async function copyToClipboard() {
+        var generatedURL = document.getElementById('generatedURL').value;
+        try {
+            await navigator.clipboard.writeText(generatedURL);
+            alert("Copied to clipboard!");
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    }
+    </script>
+</body>
+</html>
